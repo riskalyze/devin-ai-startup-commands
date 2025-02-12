@@ -2,6 +2,8 @@
 
 set -eo pipefail
 
+pushd ~
+
 sudo apt update
 sudo apt search awscli
 sudo apt install curl unzip -y
@@ -14,3 +16,4 @@ aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 aws configure set default.region us-east-2
 aws codeartifact login --tool npm --domain riskalyze --domain-owner 125149417810 --namespace rsk --repository npm
 
+popd
