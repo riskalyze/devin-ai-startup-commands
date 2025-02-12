@@ -1,0 +1,13 @@
+_extends: probot-settings
+
+repository:
+  name: devin-ai-startup-commands
+  description: A set of commands to initialize devin.ai for working with nitrogen repositories
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: false
+  use_squash_pr_title_as_default: true
+
+teams:
+  - name: solo
+    permission: push

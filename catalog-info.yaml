@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: devin-ai-startup-commands
+  description: A set of commands to initialize devin.ai for working with nitrogen repositories
+  annotations:
+    github.com/project-slug: riskalyze/devin-ai-startup-commands
+    github.com/team-slug: '@riskalyze/solo'
+  tags:
+    - poc
+spec:
+  type: service
+  lifecycle: experimental
+  owner: solo
