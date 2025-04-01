@@ -23,3 +23,4 @@ then
   echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
   mise trust -a
 fi
+mise install
