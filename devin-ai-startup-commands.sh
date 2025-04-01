@@ -15,5 +15,11 @@ aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 aws configure set default.region us-east-2
 aws codeartifact login --tool npm --domain riskalyze --domain-owner 125149417810 --namespace rsk --repository npm
 aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 125149417810.dkr.ecr.us-east-2.amazonaws.com  
-
 popd
+
+if [ -z $(which mise) ] 
+then
+  curl https://raw.githubusercontent.com/riskalyze/devin-ai-startup-commands/refs/heads/main/mise.run | sh
+  echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+  mise trust -a
+fi
