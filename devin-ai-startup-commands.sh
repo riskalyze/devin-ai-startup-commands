@@ -14,5 +14,11 @@ aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
 aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 aws configure set default.region us-east-2
 aws codeartifact login --tool npm --domain riskalyze --domain-owner 125149417810 --namespace rsk --repository npm
-
 popd
+
+if [ -z $(which mise) ] 
+then
+  curl https://raw.githubusercontent.com/riskalyze/devin-ai-startup-commands/refs/heads/main/mise.run | sh
+  echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+  mise trust -a
+fi
