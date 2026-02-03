@@ -4,11 +4,14 @@ set -eo pipefail
 
 pushd ~
 DEBIAN_FRONTEND=noninteractive
-sudo apt update
-sudo apt install curl unzip -y
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip -o awscliv2.zip
-sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/local/aws-cli --update
+if [ -z $(which aws) ] 
+then
+  sudo apt update
+  sudo apt install curl unzip -y
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  unzip -o awscliv2.zip
+  sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/local/aws-cli --update
+fi
 
 # secrets in devin.ai env
 aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
@@ -22,6 +25,7 @@ if [ -z $(which mise) ]
 then
   curl https://raw.githubusercontent.com/riskalyze/devin-ai-startup-commands/refs/heads/main/mise.run | sh
   echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+  . ~/.bashrc
   mise trust -a
 fi
 mise install
