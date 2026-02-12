@@ -5,10 +5,27 @@ set -eo pipefail
 pushd ~
 DEBIAN_FRONTEND=noninteractive
 sudo apt update
+
 sudo apt install curl unzip -y
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip -o awscliv2.zip
-sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/local/aws-cli --update
+
+# Check if awscli is already installed with the correct version
+AWSCLI_VERSION="2.33.19"
+if command -v aws &> /dev/null; then
+  INSTALLED_VERSION=$(aws --version 2>&1 | awk '{print $1}' | cut -d'/' -f2)
+  if [ "$INSTALLED_VERSION" = "$AWSCLI_VERSION" ]; then
+    echo "AWS CLI version $AWSCLI_VERSION is already installed. Skipping installation."
+  else
+    echo "AWS CLI version $INSTALLED_VERSION found. Updating to $AWSCLI_VERSION..."
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" -o "awscliv2.zip"
+    unzip -o awscliv2.zip
+    sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/local/aws-cli --update
+  fi
+else
+  echo "AWS CLI not found. Installing version $AWSCLI_VERSION..."
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" -o "awscliv2.zip"
+  unzip -o awscliv2.zip
+  sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/local/aws-cli --update
+fi
 
 # secrets in devin.ai env
 aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
