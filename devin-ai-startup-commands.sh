@@ -9,7 +9,7 @@ sudo apt update
 sudo apt install curl unzip -y
 
 # Check if awscli is already installed with the correct version
-AWSCLI_VERSION="2.33.19"
+AWSCLI_VERSION="2.33.20"
 if command -v aws &> /dev/null; then
   INSTALLED_VERSION=$(aws --version 2>&1 | awk '{print $1}' | cut -d'/' -f2)
   if [ "$INSTALLED_VERSION" = "$AWSCLI_VERSION" ]; then
