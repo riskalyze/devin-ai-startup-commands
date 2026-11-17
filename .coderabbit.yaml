@@ -1,0 +1,6 @@
+# yaml-language-server: $schema=https://www.coderabbit.ai/integrations/schema.v2.json
+# Repo-specific review settings. The org baseline (profile, auto-review ignore
+# list, learnings, knowledge base) lives in the CodeRabbit dashboard and is
+# inherited. Conventions belong in AGENTS.md, not here: these instructions only
+# say what to check and where a fix belongs.
+inheritance: true
